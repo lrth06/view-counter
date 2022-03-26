@@ -6,7 +6,7 @@
 
 ## Relevant Issues
 
-<!--- Link to related Jira issue(s) so reviewer can get more context if required -->
+<!--- Link to related issues (if any) so reviewer can get more context if required -->
 
 ## How Has This Been Tested?
 
