@@ -24,6 +24,7 @@ jobs:
             - run: npm test
     deploy:
         name: Setup Gcloud Account
+        if: github.event.pull_request.merged == 'true'
         runs-on: ubuntu-latest
         environment:
             name: Production
