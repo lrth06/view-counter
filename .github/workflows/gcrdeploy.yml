@@ -5,12 +5,8 @@ on:
         types: [closed]
 
 jobs:
-    merge_job:
-        if: github.event.pull_request.merged == true
-        runs-on: ubuntu-latest
-        steps:
-            - run: echo PR ${{ github.event.number }} has been merged echo "Deploying to GCR"
     build:
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         strategy:
             matrix:
