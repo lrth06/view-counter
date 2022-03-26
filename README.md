@@ -1,10 +1,6 @@
 # View Counter
 
-![example workflow](https://github.com/lrth06/view-counter/actions/workflows/buildnode.yml/badge.svg)
-
-![example workflow](https://github.com/lrth06/view-counter/actions/workflows/gcrdeploy.yml/badge.svg)
-
-![](https://view-counter.tobyhagan.com/?user=lrth06/view-counter)
+![](https://github.com/lrth06/view-counter/actions/workflows/buildnode.yml/badge.svg) ![](https://github.com/lrth06/view-counter/actions/workflows/gcrdeploy.yml/badge.svg) ![](https://view-counter.tobyhagan.com/?user=lrth06/view-counter&base=30373e&accent=32c754)
 
 ## Purpose
 
