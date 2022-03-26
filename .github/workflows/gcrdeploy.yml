@@ -2,9 +2,8 @@ name: Deploy
 on:
     push:
         branches: [trunk]
-            paths:
-              - '*.ts'
-              - 'Dockerfile'
+        paths:
+            - '**.ts'
 jobs:
     deploy:
         name: Setup Gcloud Account
