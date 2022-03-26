@@ -32,7 +32,7 @@ export default async function standardController(
 			standardTemplate({
 				text: req.query.text
 					? convertToColor(req.query.text.toString())
-					: 'fff',
+					: '#fff',
 				number: exists ? newValue?.toString() : '1',
 				base: req.query.base
 					? convertToColor(req.query.base.toString())
