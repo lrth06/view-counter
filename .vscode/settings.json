@@ -1,0 +1,23 @@
+{
+	"breadcrumbs.enabled": false,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"editor.autoClosingBrackets": "always",
+	"editor.autoClosingDelete": "always",
+	"editor.autoClosingOvertype": "never",
+	"editor.autoClosingQuotes": "always",
+	"editor.autoIndent": "advanced",
+	"editor.cursorSmoothCaretAnimation": false,
+	"editor.fontSize": 14,
+	"editor.fontWeight": "normal",
+	"editor.fontFamily": "JetBrains Mono, Cascadia Code, Menlo, Monaco, source-code-pro, Courier New, monospace",
+	"editor.fontLigatures": true,
+	"editor.lineNumbers": "on",
+	"editor.wordSeparators": "`~!@#$%^&*(),=+[{]}\\|;:'\"-.<>/?",
+	"editor.showFoldingControls": "always",
+	"editor.foldingStrategy": "auto",
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	}
+}

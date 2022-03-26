@@ -1,0 +1,50 @@
+{
+	"name": "trunk_based devcontainer",
+	"build": {
+		"args": { "VARIANT": "16" },
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+	"features": {
+		"docker-in-docker": {
+			"version": "latest",
+			"moby": true
+		},
+		"github-cli": "latest",
+		"node": {
+			"version": "lts",
+			"nodeGypDependencies": true
+		}
+	},
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/zsh",
+		"#terminal.integrated.defaultProfile.linux#": "zsh",
+		"editor.editor.tabSize": 4,
+		"editor.editor.useTabs": true,
+		"editor.editor.fontFamily": "JetBrains Mono, Cascadia Code, Menlo, Monaco, source-code-pro, Courier New, monospace",
+		"editor.editor.fontSize": 14,
+		"editor.editor.lineHeight": 1.5,
+		"editor.editor.rulers": [80],
+		"editor.editor.wordSeparators": "`~!@#$%^&*(),=+[{]}\\|;:'\"-.<>/?",
+		"editor.editor.autoClosingBrackets": "always",
+		"editor.editor.autoClosingQuotes": "always",
+		"editor.editor.autoClosingOvertype": "never",
+		"editor.editor.autoIndent": "advanced",
+		"editor.editor.autoSurround": "always"
+	},
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"esbenp.prettier-eslint",
+		"eamodio.gitlens",
+		"github.copilot",
+		"ms-azuretools.vscode-docker",
+		"devcontainers.vscode-extension-pack",
+		"bracketpaircolorizer.bracketpaircolorizer",
+		"tab-indent-highlight.tab-indent-highlight",
+		"ms-vscode.better-comments",
+		"mikestead.dotenv"
+	],
+	"remoteUser": "node",
+	"shutdownAction": "stopContainer"
+}
