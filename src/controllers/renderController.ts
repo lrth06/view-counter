@@ -13,7 +13,7 @@ export default async function standardController(
 			: `  <text fill="#010101" fill-opacity=".3" lengthAdjust="spacing" textLength="396.0" transform="scale(0.1)" x="258.0" y="150">Views</text>
   <text lengthAdjust="spacing" textLength="396.0" transform="scale(0.1)" x="258.0" y="140">Views</text>`;
 	try {
-		res.setHeader('Cache-Control', 'no-cache');
+		res.setHeader('Cache-Control', 'max-age=10s');
 		res.set({ 'content-type': 'image/svg+xml; charset=utf-8' });
 		res.setHeader('Content-Security-Policy', 'img-src data:');
 		const exists = await client.get(user.toLowerCase());
