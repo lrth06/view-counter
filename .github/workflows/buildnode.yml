@@ -1,38 +1,24 @@
-name: Deploy
+name: Build
 on:
     push:
-        branches:
-            - trunk
+        branches: [trunk]
+    pull_request:
+        branches: [trunk]
 jobs:
-    deploy:
-        name: Setup Gcloud Account
+    build:
         runs-on: ubuntu-latest
-        environment:
-            name: Production Release
-            url: https://view-counter.tobyhagan.com
-        needs:
-            - build
-        env:
-            IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+        strategy:
+            matrix:
+                node-version: [16.x]
+                os: [linux]
         steps:
-            - name: Login
-              uses: google-github-actions/setup-gcloud@v0
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
               with:
-                  project_id: ${{ secrets.GCP_PROJECT_ID }}
-                  service_account_email: ${{ secrets.GCP_EMAIL }}
-                  service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-
-            - name: Configure Docker
-              run: gcloud auth configure-docker --quiet
-
-            - name: Checkout repository
-              uses: actions/checkout@v2
-
-            - name: Build Docker image
-              run: docker build . -t $IMAGE_NAME
-
-            - name: Push Docker image
-              run: docker push $IMAGE_NAME
-
-            - name: Deploy Docker image
-              run: gcloud run deploy ${{ secrets.GCP_APP_NAME}} --image $IMAGE_NAME --region us-central1 --platform managed
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - run: npm ci --no-optional --quiet
+            - run: npm run lint:fix
+            - run: npm run build
+            - run: npm test
