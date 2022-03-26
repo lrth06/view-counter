@@ -1,17 +1,33 @@
 name: Deploy
 on:
-    pull_request:
+    push:
         branches: [trunk]
-        types:
-            - closed
 jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [16.x]
+                os: [linux]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - run: npm ci --no-optional --quiet
+            - run: npm run lint:fix
+            - run: npm run build
+            - run: npm test
     deploy:
-        if: '{{ github.event.pull_request.merged }}'
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         environment:
             name: Production Release
             url: https://view-counter.tobyhagan.com
+        needs:
+            - build
         env:
             IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
         steps:

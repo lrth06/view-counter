@@ -1,5 +1,5 @@
 export default function standardTemplate(props) {
-    return `<svg xmlns="http://www.w3.org/2000/svg"
+	return `<svg xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="20" width="80.6">
     <linearGradient id="smooth" x2="0" y2="100%">
         <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
