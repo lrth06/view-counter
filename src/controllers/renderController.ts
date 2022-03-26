@@ -21,7 +21,7 @@ export default async function standardController(
 		res.set({ 'content-type': 'image/svg+xml; charset=utf-8' });
 		res.setHeader('Content-Security-Policy', 'img-src data:');
 		const exists = await client.get(user.toLowerCase());
-		if (exists) {
+		if (!exists) {
 			await client.set(user.toLowerCase(), 1);
 		}
 		if (req.increment) {
