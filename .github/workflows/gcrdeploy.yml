@@ -10,8 +10,7 @@ jobs:
         strategy:
             matrix:
                 node-version: [16.x]
-                cache-restore: [true, false]
-                os: [linux, windows, macos]
+                os: [linux]
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js ${{ matrix.node-version }}

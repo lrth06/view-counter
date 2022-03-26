@@ -1,5 +1,7 @@
 # View Counter
 
+![](https://view-counter.tobyhagan.com/?user=lrth06/view-counter)
+
 ## Purpose
 
 This is a simple yet feature-rich counter that allows you to count the views of your github README files and profile page.
@@ -16,7 +18,7 @@ This is a simple yet feature-rich counter that allows you to count the views of 
 Usage is simple. Just add the following to your README.md file:
 
 ```
-![](https://visit-counter.tobyhagan.com/?user={your_github_username})
+![](https://view-counter.tobyhagan.com/?user={your_github_username})
 ```
 
 This will render the standard counter for your profile page.
@@ -26,7 +28,7 @@ This will render the standard counter for your profile page.
 You can also add a counter for more than just your profile page. Just add the following to your README.md file for a repository you want to track views for:
 
 ```
-![](https://visit-counter.tobyhagan.com/?user={your_github_username}/{your_github_repository})
+![](https://view-counter.tobyhagan.com/?user={your_github_username}/{your_github_repository})
 ```
 
 ## Customization
@@ -43,5 +45,9 @@ The counter can be customized by adding the following query parameters to the UR
 Query parameters can be combined. For example, to display an icon and change the colors both sections:
 
 ```
-![](https://visit-counter.tobyhagan.com/?user={your_github_username}&base=ff0000&accent=ccc&icon=true)
+![](https://view-counter.tobyhagan.com/?user={your_github_username}&base=ff0000&accent=3c3c3c&icon=true)
 ```
+
+The above will render :
+
+![](https://view-counter.tobyhagan.com/?base=ff0000&accent=3c3c3c&icon=true)
