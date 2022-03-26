@@ -1,0 +1,27 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "Node 16",
+	"compilerOptions": {
+		"lib": ["es2021", "dom"],
+		"module": "es6",
+		"target": "es2021",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"allowUnreachableCode": false,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"baseUrl": "./src",
+		"forceConsistentCasingInFileNames": true,
+		"declaration": true,
+		"declarationDir": "./declarations",
+		"declarationMap": true,
+		"outDir": "dist",
+		"sourceMap": true,
+		"removeComments": true,
+		"moduleResolution": "node"
+	},
+	"compileOnSave": true,
+	"exclude": ["./node_modules/", "**/node_modules"],
+	"include": ["./src/*.ts", "./src/**/*.ts"]
+}
