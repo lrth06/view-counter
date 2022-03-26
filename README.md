@@ -42,6 +42,7 @@ The counter can be customized by adding the following query parameters to the UR
 | `accent`  | The background color of the numbers         | `accent=00ff00` |
 | `icon`    | Display an icon instead of a number         | `icon=true`     |
 | `text`    | The color of the text                       | `text=000`      |
+| `flat`    | Flat design (no gradients)                  | `flat=true`     |
 
 > NOTE: Named colors may also be used, Example: text=red will render red text, if using a HEX color, be sure _NOT_ to include the #. Example: text=#ff0000 will cause an error.
 
@@ -55,12 +56,12 @@ The above will render :
 
 ![](https://view-counter.tobyhagan.com/?base=ff0000&accent=3c3c3c&icon=true)
 
-Whereas the following:
+Whereas the following uses an alternative color scheme and uses flat design:
 
 ```
-![](https://view-counter.tobyhagan.com/?user={your_github_username}&base=3c3c3c&accent=black)
+![](https://view-counter.tobyhagan.com/?user={your_github_username}&base=3c3c3c&accent=black&text=orange&flat=true)
 ```
 
-will render:
+and will render:
 
-![](https://view-counter.tobyhagan.com/?base=3c3c3c&accent=black)
+![](https://view-counter.tobyhagan.com/?base=3c3c3c&accent=black&text=orange&flat=true)
