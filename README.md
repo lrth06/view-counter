@@ -55,9 +55,12 @@ The above will render :
 
 ![](https://view-counter.tobyhagan.com/?base=ff0000&accent=3c3c3c&icon=true)
 
+Whereas the following:
+
 ```
 ![](https://view-counter.tobyhagan.com/?user={your_github_username}&base=3c3c3c&accent=black)
-
 ```
 
-Whereas the above will render: ![](https://view-counter.tobyhagan.com/?base=3c3c3c&accent=black)
+will render:
+
+![](https://view-counter.tobyhagan.com/?base=3c3c3c&accent=black)
