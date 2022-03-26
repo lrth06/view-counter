@@ -26,7 +26,7 @@ jobs:
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         environment:
-            name: Production Release
+            name: Production
             url: https://view-counter.tobyhagan.com
         needs:
             - build
