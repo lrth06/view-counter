@@ -21,10 +21,10 @@ app.get('/*', (req: Express.Request, res: Express.Response) => {
 app.listen(port, async () => {
 	try {
 		await redis.set('test', 'test');
-		const test = await redis.get('test');
-		console.log(test);
+		await redis.get('test');
 	} catch (e) {
-		process.stderr.write('Error');
+		process.stderr.write('Error Connecting to Redis ❌');
+		process.exit(1);
 	}
 	process.stdout.write(`Server started on port ${port} ✔️\n`);
 	process.stdout.write(`Started at ${new Date()} ⏱️\n`);

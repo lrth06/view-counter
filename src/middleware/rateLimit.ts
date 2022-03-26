@@ -5,7 +5,6 @@ export default function rateLimit(
 	res: Express.Response,
 	next: Express.NextFunction
 ) {
-	console.log(req.headers.cookie);
 	let lastRequest: any = req.headers.cookie
 		?.split('x-last-request-time=')[1]
 		?.split(';')[0];

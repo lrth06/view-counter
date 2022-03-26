@@ -9,47 +9,45 @@ app.use(Express.json());
 app.use(cors());
 app.use('/', router);
 app.get('/favicon.ico', (req, res) => {
-	res.sendFile(path.join(path.resolve(), 'public/favicon.ico'));
+    res.sendFile(path.join(path.resolve(), 'public/favicon.ico'));
 });
 app.get('/*', (req, res) => {
-	res.sendFile(path.join(path.resolve(), 'public/404.html'));
+    res.sendFile(path.join(path.resolve(), 'public/404.html'));
 });
 app.listen(port, async () => {
-	try {
-		await redis.set('test', 'test');
-		const test = await redis.get('test');
-		console.log(test);
-	} catch (e) {
-		process.stderr.write('Error');
-	}
-	process.stdout.write(`Server started on port ${port} ✔️\n`);
-	process.stdout.write(`Started at ${new Date()} ⏱️\n`);
-	process.stdout.write('Routes:\n');
-	console.table(
-		router.stack.map(({ route }) => ({
-			method: route.stack[0].method,
-			path: route.path,
-			middleware: route.stack.length > 1 ? route.stack[0].name : 'N/A',
-			handler:
-				route.stack.length > 1
-					? route.stack[1].handle.name
-					: route.stack[0].handle.name,
-		}))
-	);
+    try {
+        await redis.set('test', 'test');
+        await redis.get('test');
+    }
+    catch (e) {
+        process.stderr.write('Error Connecting to Redis ❌');
+        process.exit(1);
+    }
+    process.stdout.write(`Server started on port ${port} ✔️\n`);
+    process.stdout.write(`Started at ${new Date()} ⏱️\n`);
+    process.stdout.write('Routes:\n');
+    console.table(router.stack.map(({ route }) => ({
+        method: route.stack[0].method,
+        path: route.path,
+        middleware: route.stack.length > 1 ? route.stack[0].name : 'N/A',
+        handler: route.stack.length > 1
+            ? route.stack[1].handle.name
+            : route.stack[0].handle.name,
+    })));
 });
 app.on('error', (err) => {
-	process.stderr.write(`Server error: ${err.message} ❌\n`);
+    process.stderr.write(`Server error: ${err.message} ❌\n`);
 });
 process.on('SIGINT', () => {
-	process.stdout.write('\nGracefully shutting down from SIGINT (Ctrl-C)\n');
-	process.exit();
+    process.stdout.write('\nGracefully shutting down from SIGINT (Ctrl-C)\n');
+    process.exit();
 });
 process.on('SIGTERM', () => {
-	process.stdout.write('\nGracefully shutting down from SIGTERM\n');
-	process.exit();
+    process.stdout.write('\nGracefully shutting down from SIGTERM\n');
+    process.exit();
 });
 process.on('exit', () => {
-	process.stdout.write('\nGoodbye!\n');
-	process.exit();
+    process.stdout.write('\nGoodbye!\n');
+    process.exit();
 });
 //# sourceMappingURL=index.js.map
