@@ -1,6 +1,6 @@
 FROM node:16 as builder
 LABEL maintainer="Lrth06"
-LABEL description="Dockerfile for the nodejs project"
+LABEL description="Dockerfile for https://github.com/lrth06/view-counter"
 LABEL version="1.0.0"
 
 ARG REDIS_URI ${REDIS_URI}

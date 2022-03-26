@@ -4,6 +4,9 @@ on:
         branches: [trunk]
         paths:
             - '**.ts'
+            - '**.yml'
+            - '**.yaml'
+            - 'Dockerfile'
 jobs:
     deploy:
         name: Setup Gcloud Account
