@@ -1,15 +1,12 @@
 name: Deploy
 on:
-    push:
-        branches:
-            - trunk
-    workflow_run:
-        workflows: ['Build']
+    pull_request:
         branches: [trunk]
         types:
-            - completed
+            - closed
 jobs:
     deploy:
+        if: '{{ github.event.pull_request.merged }}'
         name: Setup Gcloud Account
         if: github.event.pull_request.closed == 'true'
         runs-on: ubuntu-latest
