@@ -26,9 +26,6 @@ jobs:
     deploy:
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
-        environment:
-            name: Production
-            url: https://view-counter.tobyhagan.com
         env:
             IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
         steps:
@@ -52,4 +49,4 @@ jobs:
               run: docker push $IMAGE_NAME
 
             - name: Deploy Docker image
-              run: gcloud run deploy --image $IMAGE_NAME --project ${{ secrets.GCP_PROJECT_ID }} --region us-central1 --platform managed
+              run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
