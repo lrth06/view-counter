@@ -43,7 +43,7 @@ The counter can be customized by adding the following query parameters to the UR
 | `icon`    | Display an icon instead of a number         | `icon=true`     |
 | `text`    | The color of the text                       | `text=000`      |
 
-> NOTE: All colors MUST be in hexadecimal format.
+> NOTE: Named colors may also be used, Example: text=red will render red text.
 
 Query parameters can be combined. For example, to display an icon and change the colors both sections:
 
