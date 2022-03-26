@@ -3,8 +3,8 @@ on:
     push:
         branches: [trunk]
             paths:
-              - '**/*.ts'
-              - '**/Dockerfile'
+              - '*.ts'
+              - 'Dockerfile'
 jobs:
     deploy:
         name: Setup Gcloud Account
