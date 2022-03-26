@@ -54,3 +54,10 @@ Query parameters can be combined. For example, to display an icon and change the
 The above will render :
 
 ![](https://view-counter.tobyhagan.com/?base=ff0000&accent=3c3c3c&icon=true)
+
+```
+![](https://view-counter.tobyhagan.com/?user={your_github_username}&base=3c3c3c&accent=black)
+
+```
+
+Whereas the above will render: ![](https://view-counter.tobyhagan.com/?base=3c3c3c&accent=black)
