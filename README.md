@@ -41,6 +41,9 @@ The counter can be customized by adding the following query parameters to the UR
 | `base`    | The background color of the text            | `base=ff0000`   |
 | `accent`  | The background color of the numbers         | `accent=00ff00` |
 | `icon`    | Display an icon instead of a number         | `icon=true`     |
+| `text`    | The color of the text                       | `text=000`      |
+
+> NOTE: All colors MUST be in hexadecimal format.
 
 Query parameters can be combined. For example, to display an icon and change the colors both sections:
 
