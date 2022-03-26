@@ -23,6 +23,6 @@
 	},
 
 	"compileOnSave": true,
-	"exclude": ["./node_modules/", "**/node_modules"],
-	"include": ["./src/*.ts", "./src/**/*.ts"]
+	"exclude": ["node_modules"],
+	"include": ["src/*.ts", "src/**/*.ts", "**.ts"]
 }
