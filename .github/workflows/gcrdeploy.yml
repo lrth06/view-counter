@@ -1,9 +1,7 @@
 name: Deploy
 on:
-    pull_request:
+    push:
         branches: [trunk]
-        types: [closed]
-
 jobs:
     build:
         if: github.event.pull_request.merged == true
