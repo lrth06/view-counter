@@ -3,6 +3,11 @@ on:
     push:
         branches:
             - trunk
+    workflow_run:
+        workflows: ['Build']
+        branches: [trunk]
+        types:
+            - completed
 jobs:
     deploy:
         name: Setup Gcloud Account
