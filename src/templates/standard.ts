@@ -110,7 +110,7 @@ export default function standardTemplate(props: propType) {
   </defs>
    <g fill="none" fill-rule="evenodd">
     <g font-family="'DejaVu Sans',Verdana,Geneva,sans-serif" font-size="11">
-      <path id="workflow-bg" d="M0,3 C0,1.3431 1.3552,0 3.02702703,0 L65,0 L65,20 L3.02702703,20 C1.3552,20 0,18.6569 0,17 L0,3 Z" fill="url(#text-fill)" fill-rule="nonzero"/>
+      <path d="M0,3 C0,1.3431 1.3552,0 3.02702703,0 L65,0 L65,20 L3.02702703,20 C1.3552,20 0,18.6569 0,17 L0,3 Z" fill="url(#text-fill)" fill-rule="nonzero"/>
       ${icon}
     </g>
     </g>
