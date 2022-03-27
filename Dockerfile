@@ -4,7 +4,13 @@ LABEL description="Dockerfile for https://github.com/lrth06/view-counter"
 LABEL version="1.0.0"
 
 ARG REDIS_URI ${REDIS_URI}
+ARG PM2_PUBLIC_KEY ${PM2_PUBLIC_KEY}
+ARG PM2_SECRET_KEY ${PM2_SECRET_KEY}
+ARG NODE_ENV 'prouction'
+
 RUN apt-get update && apt-get install -y nodejs && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN npm install pm2 -g
 
 WORKDIR /app
 
@@ -24,5 +30,7 @@ WORKDIR /src
 COPY --from=builder /app .
 EXPOSE 3000
 ENV REDIS_URI ${REDIS_URI}
+ENV PM2_PUBLIC_KEY ${PM2_PUBLIC_KEY}
+ENV PM2_SECRET_KEY ${PM2_SECRET_KEY}
 
-CMD ["./dist/index.js"]
+CMD ["pm2-runtime","./dist/index.js"]

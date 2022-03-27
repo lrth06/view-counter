@@ -3,11 +3,32 @@ import app from './App.js';
 import path from 'path';
 import cors from 'cors';
 import { router } from './routes/renderers.js';
+import compression from 'compression';
 import redis from './lib/redis.js';
+import { format, transports } from 'winston';
+import { logger } from 'express-winston';
 const port = process.env.PORT || 3000;
 
 app.use(Express.json());
+app.use(Express.urlencoded({ extended: true }));
+app.use(compression());
 app.use(cors());
+app.use(
+	logger({
+		transports: [new transports.Console()],
+		format: format.combine(format.colorize(), format.json()),
+		meta: true,
+		msg: 'HTTP {{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}',
+		expressFormat: true,
+		colorize: false,
+		ignoreRoute: function (req) {
+			if (req.url === '/favicon.ico') {
+				return true;
+			}
+			return false;
+		},
+	})
+);
 app.use('/', router);
 
 app.get('/favicon.ico', (req: Express.Request, res: Express.Response) => {
@@ -15,19 +36,30 @@ app.get('/favicon.ico', (req: Express.Request, res: Express.Response) => {
 });
 
 app.get('/*', (req: Express.Request, res: Express.Response) => {
-	res.sendFile(path.join(path.resolve(), 'public/404.html'));
+	res.setHeader('status', '404');
+	res.status(404).send(
+		`<head><title>404</title></head> <body>404: ${req.url}, That's an error.</body>`
+	);
 });
 
 app.listen(port, async () => {
 	try {
 		await redis.set('test', 'test');
 		await redis.get('test');
+		process.stdout.write(
+			`Successfully connected to Redis at ${process.env.REDIS_URI}\n`
+		);
 	} catch (e) {
-		process.stderr.write('Error Connecting to Redis ❌');
+		process.stderr.write('Error Connecting to Redis ❌\n');
 		process.exit(1);
 	}
+
 	process.stdout.write(`Server started on port ${port} ✔️\n`);
-	process.stdout.write(`Started at ${new Date()} ⏱️\n`);
+	process.stdout.write(
+		`Started at ${new Date().toLocaleString('en-US', {
+			timeZone: 'America/New_York',
+		})} EST ⏱️\n`
+	);
 	process.stdout.write('Routes:\n');
 	console.table(
 		router.stack.map(({ route }) => ({
