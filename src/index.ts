@@ -5,30 +5,14 @@ import cors from 'cors';
 import { router } from './routes/renderers.js';
 import compression from 'compression';
 import redis from './lib/redis.js';
-import { format, transports } from 'winston';
-import { logger } from 'express-winston';
+import asyncLogger from './middleware/asyncLogger.js';
 const port = process.env.PORT;
 
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 app.use(compression());
 app.use(cors());
-app.use(
-	logger({
-		transports: [new transports.Console()],
-		format: format.combine(format.colorize(), format.json()),
-		meta: true,
-		msg: 'HTTP {{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}',
-		expressFormat: true,
-		colorize: false,
-		ignoreRoute: function (req) {
-			if (req.url === '/favicon.ico') {
-				return true;
-			}
-			return false;
-		},
-	})
-);
+app.use(asyncLogger);
 app.use('/', router);
 
 app.get('/favicon.ico', (req: Express.Request, res: Express.Response) => {

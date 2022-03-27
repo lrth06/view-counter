@@ -20,11 +20,10 @@ export default async function standardController(
 	const user: any = req.query.user || 'Example';
 
 	try {
-		res.setHeader('Cache-Control', 'max-age=100s');
 		res.set({
-			'access-control-allow-origin': 'camo.githubusercontent.com',
-			'access-control-allow-headers': '*',
+			// 'user-agent':'camo'
 			'access-control-allow-methods': 'GET',
+			'cache-control': 'public, max-age=3600, s-maxage=3600',
 			'content-type': 'image/svg+xml; charset=utf-8',
 			'x-content-type-options': 'nosniff',
 			'x-robots-tag': 'noindex, nofollow',
