@@ -17,14 +17,14 @@ COPY yarn.lock .
 RUN yarn
 
 COPY tsconfig.json .
-COPY ./src .
+COPY . .
 
 RUN yarn build
 
 FROM gcr.io/distroless/nodejs:16 as runner
 WORKDIR /src
 
-COPY --from=builder /app .
+COPY --from=builder /app/dist/ .
 EXPOSE ${PORT}
 ENV REDIS_URI ${REDIS_URI}
-CMD ["./dist/index.js"]
+CMD [".index.js"]
