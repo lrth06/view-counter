@@ -17,7 +17,7 @@ COPY yarn.lock .
 RUN yarn
 
 COPY tsconfig.json .
-COPY . .
+COPY ./src .
 
 RUN yarn build
 
