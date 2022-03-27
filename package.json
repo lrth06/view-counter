@@ -16,7 +16,7 @@
 		"test:watch": "node dist/index.test.js --watch",
 		"deploy": "npm run clean && npm run lint:fix && npm run build && npm run test && npm start",
 		"deploy:dev": "npm run clean && npm run lint:fix && npm run build && npm run dev",
-		"deploy:container": "npm run clean && npm run lint:fix && npm run build && npm run test && docker build -t $npm_package_name:$npm_package_version . && docker run -d -p 3000:3000 $npm_package_name:$npm_package_version",
+		"deploy:container": "npm run clean && npm run lint:fix && npm run build && npm run test && docker build -t $npm_package_name:$npm_package_version . && export $(cat $(PWD)/.env | xargs) && docker run -d -p $PORT:$PORT $npm_package_name:$npm_package_version",
 		"deploy:container:clean": "docker rmi $npm_package_name -f && npm run deploy:container"
 	},
 	"type": "module",
