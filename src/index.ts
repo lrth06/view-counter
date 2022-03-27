@@ -16,7 +16,7 @@ app.use(cors());
 app.use(
 	logger({
 		transports: [new transports.Console()],
-		format: format.combine(format.colorize(), format.json()),
+		format: format.json(),
 		meta: true,
 		msg: 'HTTP {{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}',
 		expressFormat: true,
