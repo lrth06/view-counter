@@ -7,7 +7,7 @@ import compression from 'compression';
 import redis from './lib/redis.js';
 import { format, transports } from 'winston';
 import { logger } from 'express-winston';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 app.use(compression());
@@ -38,6 +38,7 @@ app.listen(port, async () => {
     try {
         await redis.set('test', 'test');
         await redis.get('test');
+        await redis.del('test');
         process.stdout.write(`Successfully connected to Redis at ${process.env.REDIS_URI}\n`);
     }
     catch (e) {

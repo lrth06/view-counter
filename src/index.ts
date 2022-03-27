@@ -7,7 +7,7 @@ import compression from 'compression';
 import redis from './lib/redis.js';
 import { format, transports } from 'winston';
 import { logger } from 'express-winston';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
