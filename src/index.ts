@@ -22,6 +22,7 @@ app.listen(port, async () => {
 	try {
 		await redis.set('test', 'test');
 		await redis.get('test');
+		await redis.del('test');
 	} catch (e) {
 		process.stderr.write('Error Connecting to Redis ❌');
 		process.exit(1);
