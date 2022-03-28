@@ -5,9 +5,6 @@ export default async function asyncLogger(
 	res: Express.Response,
 	next: Express.NextFunction
 ) {
-	const logging = new Logging();
-	const log = logging.log('view-counter-access');
-	const text = JSON.stringify(req, null, 2);
 	function severity(): string {
 		if (res.statusCode === 200) {
 			return 'INFO';
@@ -20,16 +17,16 @@ export default async function asyncLogger(
 		}
 		return 'INFO';
 	}
+	if (process.env.NODE_ENV == 'production') {
+		const logging = new Logging();
+		const log = logging.log('view-counter-access');
 
-	const metadata = {
-		resource: { type: 'global' },
-		severity: severity(),
-	};
-	const entry = log.entry(metadata, text);
-	async function writeLog() {
+		const metadata = {
+			resource: { type: 'global' },
+			severity: severity(),
+		};
+		const entry = log.entry(metadata, req);
 		await log.write(entry);
 	}
-	writeLog();
-
 	next();
 }

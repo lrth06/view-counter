@@ -1,8 +1,5 @@
 import { Logging } from '@google-cloud/logging';
 export default async function asyncLogger(req, res, next) {
-    const logging = new Logging();
-    const log = logging.log('view-counter-access');
-    const text = JSON.stringify(req, null, 2);
     function severity() {
         if (res.statusCode === 200) {
             return 'INFO';
@@ -15,15 +12,16 @@ export default async function asyncLogger(req, res, next) {
         }
         return 'INFO';
     }
-    const metadata = {
-        resource: { type: 'global' },
-        severity: severity(),
-    };
-    const entry = log.entry(metadata, text);
-    async function writeLog() {
+    if (process.env.NODE_ENV == 'production') {
+        const logging = new Logging();
+        const log = logging.log('view-counter-access');
+        const metadata = {
+            resource: { type: 'global' },
+            severity: severity(),
+        };
+        const entry = log.entry(metadata, req);
         await log.write(entry);
     }
-    writeLog();
     next();
 }
 //# sourceMappingURL=asyncLogger.js.map
