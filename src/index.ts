@@ -7,6 +7,7 @@ import compression from 'compression';
 import redis from './lib/redis.js';
 import asyncLogger from './middleware/asyncLogger.js';
 const port = process.env.PORT;
+const startUp = performance.now();
 
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
@@ -45,18 +46,21 @@ app.listen(port, async () => {
 			timeZone: 'America/New_York',
 		})} EST ⏱️\n`
 	);
-	process.stdout.write('Routes:\n');
-	console.table(
-		router.stack.map(({ route }) => ({
-			method: route.stack[0].method,
-			path: route.path,
-			middleware: route.stack.length > 1 ? route.stack[0].name : 'N/A',
-			handler:
-				route.stack.length > 1
-					? route.stack[1].handle.name
-					: route.stack[0].handle.name,
-		}))
-	);
+	if (process.env.NODE_ENV !== 'production') {
+		process.stdout.write('Routes:\n');
+		console.table(
+			router.stack.map(({ route }) => ({
+				method: route.stack[0].method,
+				path: route.path,
+				middleware:
+					route.stack.length > 1 ? route.stack[0].name : 'N/A',
+				handler:
+					route.stack.length > 1
+						? route.stack[1].handle.name
+						: route.stack[0].handle.name,
+			}))
+		);
+	}
 });
 
 app.on('error', (err: any) => {
@@ -64,16 +68,23 @@ app.on('error', (err: any) => {
 });
 
 process.on('SIGINT', () => {
-	process.stdout.write('\nGracefully shutting down from SIGINT (Ctrl-C)\n');
+	process.stdout.write('Gracefully shutting down from SIGINT (Ctrl-C)\n');
 	process.exit();
 });
 
 process.on('SIGTERM', () => {
-	process.stdout.write('\nGracefully shutting down from SIGTERM\n');
+	process.stdout.write('Gracefully shutting down from SIGTERM\n');
 	process.exit();
 });
 
 process.on('exit', () => {
-	process.stdout.write('\nGoodbye!\n');
+	const endTime = performance.now();
+	process.stdout.write(
+		`Shutdown at ${new Date().toLocaleString('en-US', {
+			timeZone: 'America/New_York',
+		})} EST ⏱️\n`
+	);
+	process.stdout.write(`Time Awake: ${(endTime - startUp) / 1000} seconds\n`);
+	process.stdout.write('Goodbye!\n');
 	process.exit();
 });

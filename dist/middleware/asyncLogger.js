@@ -1,16 +1,29 @@
+import { Logging } from '@google-cloud/logging';
 export default async function asyncLogger(req, res, next) {
-    console.log(req.query);
-    function logLevel() {
-        if (req.query.logLevel) {
-            return req.query.logLevel;
+    const logging = new Logging();
+    const log = logging.log('view-counter-access');
+    const text = JSON.stringify(req, null, 2);
+    function severity() {
+        if (res.statusCode === 200) {
+            return 'INFO';
+        }
+        if (res.statusCode === 404) {
+            return 'WARNING';
+        }
+        if (res.statusCode === 500) {
+            return 'ERROR';
         }
         return 'INFO';
     }
-    function headers() {
-        return Object.entries(req.headers).map(([key, value]) => `${key}: ${value}`);
+    const metadata = {
+        resource: { type: 'global' },
+        severity: severity(),
+    };
+    const entry = log.entry(metadata, text);
+    async function writeLog() {
+        await log.write(entry);
     }
-    const logMessage = `{METHOD:'${req.method}' URL:${req.url} ${res.statusCode} {LEVEL:${logLevel()}}  {HEADERS: {${headers()}}}\n}`;
-    await process.stdout.write(logMessage);
+    writeLog();
     next();
 }
 //# sourceMappingURL=asyncLogger.js.map

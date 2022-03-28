@@ -5,25 +5,29 @@ export default async function asyncLogger(
 	res: Express.Response,
 	next: Express.NextFunction
 ) {
-	function headers() {
-		return Object.entries(req.headers).map(
-			([key, value]) => `${key}: ${value}`
-		);
-	}
 	const logging = new Logging();
 	const log = logging.log('view-counter-access');
-	const text = `{METHOD:'${req.method}' URL:${req.url} ${
-		res.statusCode
-	} {HEADERS: {${headers()}}}\n}`;
+	const text = JSON.stringify(req, null, 2);
+	function severity(): string {
+		if (res.statusCode === 200) {
+			return 'INFO';
+		}
+		if (res.statusCode === 404) {
+			return 'WARNING';
+		}
+		if (res.statusCode === 500) {
+			return 'ERROR';
+		}
+		return 'INFO';
+	}
 
 	const metadata = {
 		resource: { type: 'global' },
-		severity: 'INFO',
+		severity: severity(),
 	};
 	const entry = log.entry(metadata, text);
 	async function writeLog() {
 		await log.write(entry);
-		console.log(`Logged: ${text}`);
 	}
 	writeLog();
 

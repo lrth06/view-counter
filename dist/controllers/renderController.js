@@ -14,7 +14,7 @@ export default async function standardController(req, res) {
     try {
         res.set({
             'access-control-allow-methods': 'GET',
-            'cache-control': 'public, max-age=3600, s-maxage=3600',
+            'cache-control': 'public, max-age=3600, stale-while-revalidate=3600, stale-if-error=3600',
             'content-type': 'image/svg+xml; charset=utf-8',
             'x-content-type-options': 'nosniff',
             'x-robots-tag': 'noindex, nofollow',
