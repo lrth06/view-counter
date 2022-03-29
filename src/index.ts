@@ -39,7 +39,6 @@ app.listen(port, async () => {
 		process.stderr.write('Error Connecting to Redis ❌\n');
 		process.exit(1);
 	}
-
 	process.stdout.write(`Server started on port ${port} ✔️\n`);
 	process.stdout.write(
 		`Started at ${new Date().toLocaleString('en-US', {

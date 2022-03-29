@@ -7,7 +7,7 @@ export default async function asyncLogger(req, res, next) {
         if (res.statusCode === 404) {
             return 'WARNING';
         }
-        if (res.statusCode === 500) {
+        if (res.statusCode <= 500) {
             return 'ERROR';
         }
         return 'INFO';
@@ -20,8 +20,14 @@ export default async function asyncLogger(req, res, next) {
             severity: severity(),
         };
         const entry = log.entry(metadata, req);
-        await log.write(entry);
+        try {
+            await log.write(entry);
+            next();
+        }
+        catch (err) {
+            console.log(err);
+            next();
+        }
     }
-    next();
 }
 //# sourceMappingURL=asyncLogger.js.map

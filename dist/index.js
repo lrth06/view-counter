@@ -7,6 +7,7 @@ import compression from 'compression';
 import redis from './lib/redis.js';
 import asyncLogger from './middleware/asyncLogger.js';
 const port = process.env.PORT;
+const startUp = performance.now();
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 app.use(compression());
@@ -18,7 +19,7 @@ app.get('/favicon.ico', (req, res) => {
 });
 app.get('/*', (req, res) => {
     res.setHeader('status', '404');
-    res.status(404).send(`<head><title>404</title></head><body>404: ${req.url}, That's an error.</body>`);
+    res.status(404).send(`<head><title>404</title></head> <body>404: ${req.url}, That's an error.</body>`);
 });
 app.listen(port, async () => {
     try {
@@ -59,9 +60,11 @@ process.on('SIGTERM', () => {
     process.exit();
 });
 process.on('exit', () => {
+    const endTime = performance.now();
     process.stdout.write(`Shutdown at ${new Date().toLocaleString('en-US', {
         timeZone: 'America/New_York',
     })} EST ⏱️\n`);
+    process.stdout.write(`Time Awake: ${(endTime - startUp) / 1000} seconds\n`);
     process.stdout.write('Goodbye!\n');
     process.exit();
 });
